@@ -5,6 +5,8 @@ from fastapi.security import OAuth2PasswordBearer
 from app.database import init_db
 from app.routers import auth
 from app.config import settings
+from app.routers import jobs
+from app.services import profile 
 
 app=FastAPI(
     title="Jobflow for AI Engine",
@@ -15,6 +17,9 @@ app=FastAPI(
 init_db()  # Initialize the database and create tables
 
 app.include_router(auth.router)
+app.include_router(jobs.router)
+app.include_router(profile.router)
+
 
 oauth2_scheme=OAuth2PasswordBearer(tokenUrl="auth/login")
 
